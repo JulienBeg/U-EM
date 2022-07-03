@@ -121,9 +121,11 @@ Output:
     - k_guess : key hypothesis ranked in deacreasing pearson correlation (from most likely to least likely)
 """
 def HO_CPA(T,Y):
+    
+    N = 8 
 
     Q = len(T)
-    Text,Mask = np.meshgrid(T, M, copy=False, sparse=True)
+    Text,Mask = np.meshgrid(T, mask, copy=False, sparse=True)
 
     ybar = np.reshape(np.mean(Y,axis=1),(2,1))
     Yp = np.prod(Y - ybar,axis=0) #Belong to R^Q
