@@ -139,7 +139,23 @@ When a convergence threshold is reached then the U-EM distinguihser ranks the ke
 
 #### Correlation of Sensitive Variables with the Traces of the DPAv4.2 Contest 
 
-We can validate that the raw traces from the DPAv4.2 Contest actually leak information about the sensitive variables. This is done by computing the Pearson correlation coefficient in between the raw traces and the sensitive variables with Hamming Weight Leakage. We observe that the output of the SBox leaks aroud the time $ \approx 26 \times 10^4 $ and the masks leaks at different times e.g. $ \approx 30 \times 10^4$. 
+We can validate that the raw traces from the DPAv4.2 Contest actually leak information about the sensitive variables. This is done by computing the Pearson correlation coefficient in between the raw traces and the sensitive variables with Hamming Weight Leakage. We observe that the output of the SBox leaks aroud the time $ \approx 27 \times 10^4 $ and the masks leaks at different times e.g. $ \approx 30 \times 10^4$. 
+
+For the PoI extraction we repectively used for the 16 folders: 
+
+T0 = [
+        270581,270581,270581,270581,
+        270580,270581,270580,270580,
+        270581,270580,270581,270581,
+        270581,270580,270580,270580
+]
+
+T1 = [
+        307824,307822,307825,307821,
+        307821,307823,307824,307823,
+        307824,307823,307824,307823,
+        307823,307824,307823,307823
+]
 
 <object data="Figs/corrMask.pdf" type="application/pdf" width="100%">
     <embed src="Figs/corrMask.pdf">
