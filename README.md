@@ -53,14 +53,13 @@ where
 
 
 $$
-x(k)_q = \frac{1}{2^n} \sum \limits_{m \in \mathbb{F}_2^n} w_H(m) w_H(S(k \oplus t_q) \oplus m) \qquad (q=1,2,\ldots,Q).
+x(k)_q = \frac{1}{2^n} \sum w_H(m) w_H(S(k \oplus t_q) \oplus m) \qquad (q=1,2,\ldots,Q).
 $$
-
-
 
 The distinguisher is then
+
 $$
-\hat{k}_{\text{2O-CPA}}(\mathbf{y}) = \arg \max_{k} |\rho(\mathbf{x}(k),\widetilde{\mathbf{y}^{(1)}} \widetilde{\mathbf{y}^{(2)}})| = \arg \max_{k} |\frac{Cov (\mathbf{x}(k),\widetilde{\mathbf{y}^{(1)}} \widetilde{\mathbf{y}^{(2)}})}{\sigma_{\mathbf{x}(k)}\sigma_{\mathbf{y}^{(1)} \mathbf{y}^{(2)}}}|
+\hat{k}(\mathbf{y}) = \arg \max_{k} |\rho(\mathbf{x}(k),\widetilde{\mathbf{y}^{(1)}} \widetilde{\mathbf{y}^{(2)}})| = \arg \max_{k} |\frac{Cov (\mathbf{x}(k),\widetilde{\mathbf{y}^{(1)}} \widetilde{\mathbf{y}^{(2)}})}{\sigma_{\mathbf{x}(k)}\sigma_{\mathbf{y}^{(1)} \mathbf{y}^{(2)}}}|
 $$
 
 where $\rho$ is the empirical Pearson correlation coefficient. The guessed key is the one which is the most correlated with the leakages. CPA is well adapted for the Hamming weight leakage model, but applying it to linear leakage model  leads to a model mismatch which will be shown to limit its performance.
@@ -72,7 +71,7 @@ This is unrealistic as these parameters are unknown in practice. Indeed, their k
 
 
 $$
-\hat{k}_{\text{ML}} = \arg \max_{k} \mathbb{P}(\mathbf{Y}=\mathbf{y}|k,a^{*},b^{*}).
+\hat{k} = \arg \max_{k} \mathbb{P}(\mathbf{Y}=\mathbf{y}|k,a^{*},b^{*}).
 $$
 
 
@@ -90,25 +89,19 @@ One iteratively
 * maximizes the expression in the parameters to update them. 
 * The algorithm stops when a given convergence criterion is achieved. 
 
-
-
 ##### The E-Step
 
 We initialize the value of a_0 and b_0 arbitrarly, and at each iteration p build  (a_p) and (b_p) recursively using the formula
 
-
 $$
-a_{p+1},b_{p+1} \longleftarrow \underbrace{\arg \max_{a,b}}_\text{M-Step} \underbrace{\mathbb{E}_{\mathbf{M} \sim \mathcal{U}(\mathbb{F}_2^{n})^Q}{[\log(\mathbb{P}(\mathbf{Y}=\mathbf{y},\mathbf{M}|k,a,b))]}}_\text{E-Step}.
+a_{p+1},b_{p+1} \longleftarrow \arg \max_{a,b} \mathbb{E}_{\mathbf{M} \sim \mathcal{U}(\mathbb{F}_2^{n})^Q}{[\log(\mathbb{P}(\mathbf{Y}=\mathbf{y},\mathbf{M}|k,a,b))]}.
 $$
-
 
 We show in the article that it reduces to
-
 
 $$
 (a_{p+1},b_{p+1}) = \arg \min_{(a,b)} \sum \limits_{q} \sum \limits_{m_q} \alpha_q^{(p)}(m_q) \|y_q - x(a,b,k,t_q,m_q)\|^{2}
 $$
-
 
 where \alpha denotes the Bayes posterior probabily that the mask is used for a given trace.
 
@@ -116,36 +109,29 @@ where \alpha denotes the Bayes posterior probabily that the mask is used for a g
 
 Let
 
-
 $$
 \overline{\mathbf{x}}^{(i)} = \frac{1}{Q} \sum \limits_{q,m} \alpha_{q}(m) x_{k,t_q,m}^{(i)} \in \mathbb{R}^n.
 $$
 
-
 The empirical autocorrelation matrix is
-
 
 $$
 \smash{\widehat{R{\mathbf{x}\mathbf{x}}^{(i)}}} = \sum \limits_{q,m} \alpha_{q}(m)  (x_{k,t_q,m}^{(i)} - \overline{\mathbf{x}}^{(i)}) (x_{k,t_q,m}^{(i)} - \overline{\mathbf{x}}^{(i)})^\bot \in \mathbb{R}^{n \times n}.
 $$
 
-
 and the empirical intercorrelation is
+
 $$
 \widehat{R_{\mathbf{x}\mathbf{y}}^{(i)}}  =  \sum \limits_{q,m} \alpha_{q}(m)  (x_{k,t_q,m}^{(i)} - \overline{\mathbf{x}}^{(i)}) y_{q}^{(i)^\bot} \in \mathbb{R}^{n }.
 $$
 
-
 The M-Step is given by the following rule:
-
 
 $$
 a^{(i)} =\bigl(\widehat{R_{\mathbf{x}\mathbf{x}}^{(i)}}\bigr)^{-1} \;\widehat{R_{\mathbf{x}\mathbf{y}}^{(i)}}
-
 \qquad and \qquad
 b^{(i)} =  - \langle a^{(i)} , \overline{\mathbf{x}}^{(i)} \rangle
 $$
-
 
 #####  Distinguisher
 
