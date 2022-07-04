@@ -2,7 +2,7 @@
 
 #### Keywords
 
-Side Channel Analysis, Expectation-Maximization, Corelation Power Analysis, CPA, DPA
+Side Channel Analysis, Expectation-Maximization, Correlation Power Analysis, CPA, DPA
 
 #### Presentation
 
