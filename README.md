@@ -171,4 +171,8 @@ T1 = [
 
 #### Performance of the Distinguishers
 
-We have validated the performances of the Distinguishers numerically and on the real traces from DPA Contests. Here are some of these results... 
+We have validated the performances of the Distinguishers numerically and on the real traces from DPA Contests.
+
+![Succes Rate](Figs/SR_DPA.png)
+
+![Guessing Entropy](Figs/GE_DPA.png)
